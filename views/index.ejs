@@ -1,0 +1,96 @@
+<%- include('./include/header.ejs') %>
+<!-- <a class="bg-dark" href="">LogOut</a>
+<p class="bg-dark text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">4343</p> -->
+
+<div class="fixed-top">
+  <div class="input group row">
+    <div class="col-8">
+    <input type="text" id="search" class="form-control" placeholder="Search" aria-label="Recipient's username with two button addons">
+    <div class="search_placeholder"></div>
+    <p id='error'></p>
+  </div>
+ 
+    <div class="col-4">
+    <button  class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#new_Po" type="button">New PO</button>
+  </div>
+  </div>
+  </div>
+ 
+
+  <table
+    class="table table-border table-sm table-striped mt-5"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">PO</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Card</th>
+        <th scope="col">Color</th>
+        <th scope="col" class="text-warning">Input</th>
+        <th scope="col" class="text-danger">Output</th>
+        <th scope="col" class="text-info">balance</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    
+     
+      
+   
+ 
+      <% let out =0 %> 
+     <% for( let i = 0; i < ipId.length; i++ ) { %>
+     
+      
+      <tr>
+        <td  onclick="po('<%=ipId[i]._id%>')" data-bs-toggle="modal" data-bs-target="#po"> 
+          
+            <div class=""><%= ipId[i].po %>  <h6 class="badge bg-warning text-dark"><%=ipId[i].date%></h6></div>
+            
+          
+       
+        </td>
+        <td>
+          <%= ipId[i].rate %>
+        </td>
+
+       
+        <td onclick="card('<%= ipId[i]._id %>')"  data-bs-toggle="modal" data-bs-target="#card"><%= ipId[i].card %> </td>
+        <td><%= ipId[i].color %> </td>
+        <td onclick="card('<%= ipId[i]._id %>')"  data-bs-toggle="modal" data-bs-target="#input_update"><%= ipId[i].total %> </td>
+<% let out = 0  %> 
+        <% ipId[i].poId.map((v,i)=>{%>
+         
+       <% out += v.output %>
+       <% }) %>
+        <td onclick="card('<%= ipId[i]._id %>')"  data-bs-toggle="modal" data-bs-target="#out"> <%= out %> </td>
+       
+
+        <%let balance = ipId[i].total - out %> 
+
+        <td class="balan" id="balance"> <%= balance %> </td>
+    
+
+        
+       
+      
+      </tr>
+      <% } %>
+    
+    </tbody>
+  </table>
+  
+
+
+  <%- include('./include/rate.ejs') %>  
+  <%- include('./include/out.ejs') %>  
+  <%- include('./include/po.ejs') %>  
+  <%- include('./include/new_po.ejs') %> 
+  <%- include('./include/input_update.ejs') %> 
+
+ 
+
+
+
+
+<%- include('./include/footer.ejs') %>
